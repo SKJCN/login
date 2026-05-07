@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Alice Johnson",
+    "password": "alice-key-2024",
+    "url": "https://dashboard.example.com/alice"
+  },
+  {
+    "name": "Bob Smith",
+    "password": "bob-secure-789",
+    "url": "https://dashboard.example.com/bob"
+  },
+  {
+    "name": "Carol White",
+    "password": "carol-pass-xyz",
+    "url": "https://dashboard.example.com/carol"
+  }
+]
