@@ -5,109 +5,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Client Portal — Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0b0c0e;
-      --surface:   #13151a;
-      --border:    #252830;
-      --gold:      #c9a84c;
-      --gold-dim:  #8a6f30;
-      --text:      #e8e4dc;
-      --muted:     #6b6860;
-      --error:     #c0544a;
-      --success:   #4a9c6e;
+      --navy:    #0b1f42;
+      --blue:    #1a4fa0;
+      --sky:     #3b82f6;
+      --accent:  #f59e0b;
+      --light:   #f0f5ff;
+      --white:   #ffffff;
+      --text:    #1e2d45;
+      --muted:   #6b7a96;
+      --border:  #d0dff5;
+      --radius:  12px;
+      --error:   #dc2626;
+      --success: #16a34a;
     }
 
     html, body {
       height: 100%;
-      background: var(--bg);
+      background: var(--light);
       color: var(--text);
-      font-family: 'DM Mono', monospace;
+      font-family: 'Nunito Sans', sans-serif;
       overflow: hidden;
     }
 
+    /* ── Background ── */
     .bg-canvas {
       position: fixed; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 70% 60% at 20% 30%, rgba(201,168,76,.07) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 80% 70%, rgba(201,168,76,.04) 0%, transparent 55%),
-        var(--bg);
+        radial-gradient(ellipse 70% 60% at 20% 30%, rgba(26,79,160,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 70%, rgba(59,130,246,.05) 0%, transparent 55%),
+        var(--light);
     }
     .bg-canvas::after {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+        linear-gradient(rgba(26,79,160,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,79,160,.04) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
     }
 
+    /* ── Card ── */
     .card {
       position: relative; z-index: 1;
-      width: min(420px, 92vw);
-      background: var(--surface);
+      width: min(440px, 92vw);
+      background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 52px 48px 48px;
-      box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.06);
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: 0 8px 40px rgba(11,31,66,.13), 0 2px 8px rgba(11,31,66,.07);
       margin: auto;
       top: 50%; transform: translateY(-50%);
-      animation: fadeUp .7s cubic-bezier(.22,1,.36,1) both;
+      overflow: hidden;
     }
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(calc(-50% + 24px)); }
-      to   { opacity:1; transform:translateY(-50%); }
+
+    /* ── Card Header ── */
+    .card-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      padding: 28px 36px 24px;
+      position: relative;
+    }
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--sky), var(--accent));
     }
 
     .logomark {
       display: flex; align-items: center; gap: 12px;
-      margin-bottom: 40px;
     }
     .logomark svg { flex-shrink: 0; }
     .logomark-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-weight: 300;
-      letter-spacing: .18em; color: var(--text); text-transform: uppercase;
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: .04em; color: var(--white); text-transform: uppercase;
     }
-    .logomark-text span { color: var(--gold); }
+    .logomark-text span { color: var(--accent); }
+
+    /* ── Card Body ── */
+    .card-body {
+      padding: 36px 36px 32px;
+    }
 
     h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px; font-weight: 300;
-      letter-spacing: .02em; line-height: 1.1; margin-bottom: 6px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 26px; font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
     }
     .subtitle {
-      font-size: 11px; letter-spacing: .12em;
-      color: var(--muted); text-transform: uppercase; margin-bottom: 36px;
+      font-size: 13px; letter-spacing: .04em;
+      color: var(--muted); margin-bottom: 28px;
+      text-transform: uppercase; font-weight: 600;
     }
     .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-      margin-bottom: 36px; opacity: .5;
+      height: 2px;
+      background: linear-gradient(90deg, var(--sky), var(--accent));
+      border-radius: 2px;
+      margin-bottom: 28px; opacity: .35;
     }
 
     label {
-      display: block; font-size: 10px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+      display: block; font-size: 11px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 8px; font-weight: 600;
     }
-    .input-wrap { position: relative; margin-bottom: 28px; }
+    .input-wrap { position: relative; margin-bottom: 24px; }
 
     input[type="password"], input[type="text"] {
       width: 100%;
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border); border-radius: 2px;
-      color: var(--text); font-family: 'DM Mono', monospace;
-      font-size: 14px; letter-spacing: .1em;
-      padding: 14px 46px 14px 16px; outline: none;
-      transition: border-color .25s, box-shadow .25s;
+      background: var(--light);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: 'Nunito Sans', sans-serif;
+      font-size: 15px; font-weight: 500;
+      padding: 13px 46px 13px 16px; outline: none;
+      transition: border-color .2s, box-shadow .2s;
     }
     input:focus {
-      border-color: var(--gold-dim);
-      box-shadow: 0 0 0 3px rgba(201,168,76,.08);
+      border-color: var(--sky);
+      box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+      background: var(--white);
     }
 
     .eye-btn {
@@ -115,29 +139,30 @@
       background: none; border: none; cursor: pointer; color: var(--muted);
       padding: 4px; display: flex; align-items: center; transition: color .2s;
     }
-    .eye-btn:hover { color: var(--gold); }
+    .eye-btn:hover { color: var(--blue); }
 
     button.submit {
       width: 100%;
-      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
-      border: none; border-radius: 2px; color: #0b0c0e;
-      font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 400;
-      letter-spacing: .2em; text-transform: uppercase; padding: 16px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      border: none; border-radius: 8px; color: var(--white);
+      font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; padding: 15px;
       cursor: pointer; position: relative; overflow: hidden;
-      transition: opacity .2s, transform .15s;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 14px rgba(11,31,66,.2);
     }
     button.submit:disabled { opacity: .4; cursor: not-allowed; }
-    button.submit:not(:disabled):hover  { opacity: .9; }
+    button.submit:not(:disabled):hover  { opacity: .9; box-shadow: 0 6px 20px rgba(11,31,66,.28); }
     button.submit:not(:disabled):active { transform: scale(.98); }
     button.submit::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,.18));
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,.1));
     }
 
     .spinner {
       display: none; width: 16px; height: 16px;
-      border: 2px solid rgba(0,0,0,.2); border-top-color: #0b0c0e;
+      border: 2px solid rgba(255,255,255,.25); border-top-color: var(--white);
       border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -145,16 +170,18 @@
     button.submit.loading .spinner  { display: block; }
 
     .msg {
-      font-size: 11px; letter-spacing: .06em;
-      padding: 12px 14px; border-radius: 2px; margin-top: 18px; display: none;
+      font-size: 12px; letter-spacing: .04em;
+      padding: 11px 14px; border-radius: 8px; margin-top: 16px; display: none;
+      font-weight: 600;
     }
-    .msg.error   { background:rgba(192,84,74,.12);  border:1px solid rgba(192,84,74,.3);  color:#e07070; display:block; }
-    .msg.success { background:rgba(74,156,110,.12); border:1px solid rgba(74,156,110,.3); color:#6ecf9a; display:block; }
-    .msg.info    { background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2); color:var(--gold); display:block; }
+    .msg.error   { background: rgba(220,38,38,.08);  border:1.5px solid rgba(220,38,38,.25);  color: var(--error); display:block; }
+    .msg.success { background: rgba(22,163,74,.08);  border:1.5px solid rgba(22,163,74,.25);  color: var(--success); display:block; }
+    .msg.info    { background: rgba(59,130,246,.08); border:1.5px solid rgba(59,130,246,.2);  color: var(--blue); display:block; }
 
     .footer {
-      margin-top: 36px; font-size: 10px; letter-spacing: .1em;
+      margin-top: 28px; font-size: 11px; letter-spacing: .08em;
       color: var(--muted); text-align: center; text-transform: uppercase;
+      font-weight: 600;
     }
 
     @keyframes shake {
@@ -171,42 +198,42 @@
 
 <div class="card">
 
-  <div class="logomark">
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <rect x="1" y="1" width="26" height="26" rx="1" stroke="#c9a84c" stroke-width="1"/>
-      <path d="M8 14 L14 8 L20 14 L14 20 Z" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
-      <circle cx="14" cy="14" r="2.5" fill="#c9a84c"/>
-    </svg>
-    <div class="logomark-text">Client <span>Portal</span></div>
+  <div class="card-header">
+    <div class="logomark">
+      <div class="logomark-text">Sri Kamakshi Jagan <span>Cable Network</span></div>
+    </div>
   </div>
 
-  <h1>Welcome back</h1>
-  <p class="subtitle">Enter your access key to continue</p>
-  <div class="divider"></div>
+  <div class="card-body">
+    <h1>Welcome</h1>
+    <p class="subtitle">Enter your access key to continue</p>
+    <div class="divider"></div>
 
-  <label for="pwd">Access Key</label>
-  <div class="input-wrap">
-    <input type="password" id="pwd" placeholder="••••••••" autocomplete="current-password" />
-    <button class="eye-btn" id="toggleEye" aria-label="Toggle visibility" type="button">
-      <svg id="eyeOpen" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-      </svg>
-      <svg id="eyeOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none">
-        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
-        <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
-        <line x1="1" y1="1" x2="23" y2="23"/>
-      </svg>
+    <label for="pwd">Access Key</label>
+    <div class="input-wrap">
+      <input type="password" id="pwd" placeholder="••••••••" autocomplete="current-password" />
+      <button class="eye-btn" id="toggleEye" aria-label="Toggle visibility" type="button">
+        <svg id="eyeOpen" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg id="eyeOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none">
+          <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+
+    <button class="submit" id="submitBtn" type="button" disabled>
+      <span class="btn-label">Access Profile →</span>
+      <div class="spinner"></div>
     </button>
+
+    <div class="msg" id="msg"></div>
+
+    <div class="footer">Secure client access</div>
   </div>
 
-  <button class="submit" id="submitBtn" type="button" disabled>
-    <span class="btn-label">Access Dashboard →</span>
-    <div class="spinner"></div>
-  </button>
-
-  <div class="msg" id="msg"></div>
-
-  <div class="footer">Secure client access · All sessions monitored</div>
 </div>
 
 <script>
@@ -255,7 +282,6 @@
       return;
     }
 
-    // Find matching client from JSON data
     const match = clientsData.find(c => c.password === entered);
 
     if (!match) {
@@ -265,7 +291,6 @@
       return;
     }
 
-    // Success — show welcome message and redirect to their URL
     submitBtn.classList.add('loading');
     submitBtn.disabled = true;
     showMsg(`✓ Welcome, ${match.name}! Opening your dashboard…`, 'success');
@@ -284,7 +309,6 @@
     msgEl.className = 'msg';
   }
 
-  // Kick off JSON load immediately
   loadClients();
 </script>
 </body>
